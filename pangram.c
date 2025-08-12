@@ -1,42 +1,33 @@
 #include <iostream>
 #include <string>
-#include <algorithm> // for sort and unique
-#include <cctype>    // for tolower, isalpha
+#include <algorithm>
+#include <cctype>
 
 using namespace std;
 
-bool isPangram(const string& str) {
-    string letters;
+int main() {
+    int n;
+    cin >> n;
+    cin.ignore();  // ignore newline after number input
 
-    // Extract alphabets and convert to lowercase
-    for (char ch : str) {
+    string s;
+    getline(cin, s);
+
+    string letters;
+    for (char ch : s) {
         if (isalpha(ch)) {
             letters.push_back(tolower(ch));
         }
     }
 
-    // Sort the string
     sort(letters.begin(), letters.end());
-
-    // Remove consecutive duplicates
     auto last = unique(letters.begin(), letters.end());
-
-    // Resize string to contain only unique letters
     letters.erase(last, letters.end());
 
-    // Check if size == 26
-    return letters.size() == 26;
-}
-
-int main() {
-    string input;
-    cout << "Enter a sentence: ";
-    getline(cin, input);
-
-    if (isPangram(input)) {
-        cout << "The sentence is a pangram." << endl;
+    if (letters.size() == 26) {
+        cout << "YES\n";
     } else {
-        cout << "The sentence is NOT a pangram." << endl;
+        cout << "NO\n";
     }
 
     return 0;
